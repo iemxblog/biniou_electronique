@@ -14,6 +14,8 @@ const int threshold = 100;
 const int n_buttons = 7;
 
 unsigned int base_freq = 932;
+enum Mode {major, minor};
+Mode mode = major;
 const float st = 1.059463;
 
 void setup()                    
@@ -50,6 +52,14 @@ void configMode()
         sib();
         delay(1000);
         break;
+      case 4:
+        mode=major;
+        delay(1000);
+        break;
+      case 8:
+        mode=minor;
+        delay(1000);
+        break;
     }
   }
 }
@@ -74,7 +84,16 @@ void blink(unsigned int ms)
 
 void la()
 {
-  tone(jack, base_freq/st);
+  switch(mode) {
+    case major:
+      tone(jack, base_freq/st);
+      break;
+    case minor:
+      tone(jack, base_freq / pow(st, 2));
+      break;
+    default:
+      break;
+  }
 }
 
 void sib()
@@ -89,7 +108,16 @@ void ut()
 
 void re()
 {
-  tone(jack, base_freq * pow(st, 4));
+  switch(mode) {
+    case major:
+      tone(jack, base_freq * pow(st, 4));
+      break;
+    case minor:
+      tone(jack, base_freq * pow(st, 3));
+      break;
+    default:
+      break;
+  }
 }
 
 void mib()
@@ -109,7 +137,16 @@ void fa()
 
 void sol()
 {
-  tone(jack, base_freq * pow(st, 9));
+  switch(mode) {
+    case major:
+      tone(jack, base_freq * pow(st, 9));
+      break;
+    case minor:
+      tone(jack, base_freq * pow(st, 8));
+      break;
+    default:
+      break;
+  }
 }
 
 void lab()
