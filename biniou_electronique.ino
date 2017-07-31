@@ -20,8 +20,9 @@ const float st = 1.059463;
 
 void setup()                    
 {
+   ADCSRA=0;  // disable ADC
+   
    pinMode(led, OUTPUT);
-   Serial.begin(9600);
    uint8_t fingering = 0;
    while(fingering != 64 && fingering != 32) {
     blink(50);
@@ -29,7 +30,8 @@ void setup()
    }
    if(fingering == 32)
     configMode();
-   ledOn();
+   //ledOn();
+   ledOff();
 }
 
 void configMode()
@@ -189,10 +191,6 @@ uint8_t getFingering()
 
 void loop()                    
 {
-
-    //Serial.println(fingering);
-    Serial.println(b1.capacitiveSensor(30));
-
     uint8_t fingering = getFingering();
     switch(fingering) {
       case 127:
@@ -232,7 +230,6 @@ void loop()
         do2();
         break;
       default:
-        noTone(jack);
-        
+        noTone(jack);        
     } 
 }
